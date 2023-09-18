@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manufacturers</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/main.css">
+
+
+</head>
+<body>
+
+<header th:replace="~{fragments/header}"/>
+
+<div class="container-categories" style="background-color: #d1d1d1">
+
+    <h2>Manufacturers</h2>
+    <table class="table">
+        <tbody>
+        <tr th:each="manufacturer: ${manufacturers}">
+            <td>
+                <span th:text="${manufacturer.name}"></span>
+                <span class="text-muted" th:text="' (' + ${manufacturer.email} + ')'"></span>
+            </td>
+            <td>
+                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <form th:action="@{/manufacturers/delete/{id} (id=${manufacturer.getId()})}"
+                          th:method="GET">
+                        <button type="submit"
+                                class="btn btn-sm btn-danger delete-product">
+                            <i class="fa fa-trash">DELETE</i>
+                        </button>
+                    </form>
+                </th:block>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Add New Manufacturer</h3>
+    <form th:action="@{/manufacturers}" th:method="POST">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input id="name" type="text" class="form-control" name="name" th:value="${tmpManufacturer} != null ? ${tmpManufacturer.getName()} : ''"/>
+        </div>
+        <div class="form-group">
+            <label for="desc">Description:</label>
+            <input id="desc" type="text" class="form-control" name="description" th:value="${tmpManufacturer} != null ? ${tmpManufacturer.getEmail()} : ''"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<footer th:replace="~{fragments/footer}"/>
+</body>
+</html>
