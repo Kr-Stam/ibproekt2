@@ -14,7 +14,7 @@
 
 <header th:replace="~{fragments/header}"/>
 
-<div class="container-categories" style="background-color: #d1d1d1">
+<div class="container p-4" style="background-color: #d1d1d1">
 
     <h2>Categories</h2>
     <table class="table">
@@ -52,7 +52,7 @@
             <label for="desc">Description:</label>
             <input id="desc" type="text" class="form-control" name="description" th:value="${tmpCategory} != null ? ${tmpCategory.getDescription()} : ''"/>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
     </form>
 </div>
 
